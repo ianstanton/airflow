@@ -119,8 +119,10 @@ spec:
           # If the scheduler stops heartbeating for 5 minutes (10*30s) kill the
           # scheduler and let Kubernetes restart it
           livenessProbe:
-            failureThreshold: 10
-            periodSeconds: 30
+            initialDelaySeconds: {{ .Values.scheduler.livenessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.scheduler.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ .Values.scheduler.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.scheduler.livenessProbe.periodSeconds }}
             exec:
               command:
               - python
